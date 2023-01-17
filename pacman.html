@@ -5,7 +5,6 @@
     var yPos = 0;
     let pageWidth = 1500;
     let pageHeight = 750;
-    
     const pacArray = [
         ['PacMan1.png', 'PacMan2.png'],
         ['PacMan3.png', 'PacMan4.png'],
@@ -14,7 +13,6 @@
     ];
     var direction = 0;
     var focus = 0;
- 
     function Run() {
         let img = document.getElementById("PacMan");
         let imgWidth = img.width
@@ -40,13 +38,13 @@
              img.style.top = yPos + 'px';
             break;
         }
-    
+      
         setTimeout(Run, 300);
     }
     
     function checkPageBounds(direction, imgWidth, imgHeight, xPos, yPos, pageWidth, pageHeight) {
      if ( (xPos + imgWidth) > pageWidth && direction == 0 
-        || xPos < 10 && direction == 1 
+        || xPos < 20 && direction == 1 
         || yPos < 0 && direction == 2 
         || (yPos + imgHeight) > pageHeight && direction ==3) {
             direction = (direction + 1) % 4;
@@ -56,9 +54,10 @@
     }
 </SCRIPT>
 
-<body>
+<body style="background-color:black">
     <img id="PacMan" src="PacMan1.png" width='200' onclick="Run()" style="position:absolute"> </img>
-    <canvas id="myCanvas" width="1500" height="750" style="border:3px solid #000000;"></canvas>
+    <canvas id="myCanvas" width="1500" height="750" style="border:10px double #334CFF;"></canvas>
+
     <p></p>
     <a href="https://en.wikipedia.org/wiki/Pac-Man">
         <img id="Header" src="header.svg" width='700' style="position:fixed; width:800px; height:150px"> </img>
