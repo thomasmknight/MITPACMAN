@@ -1,33 +1,55 @@
 <html>
 <SCRIPT>
-    var pos = 0;
-    let pageWidth = window.innerWidth;
+    
+    var xPos = 0;
+    var yPos = 0;
+    let pageWidth = 1500;
+    let pageHeight = 750;
+    
     const pacArray = [
         ['PacMan1.png', 'PacMan2.png'],
-        ['PacMan3.png', 'PacMan4.png']
+        ['PacMan3.png', 'PacMan4.png'],
+        ['PacMan5.png', 'PacMan6.png'],
+        ['PacMan7.png', 'PacMan8.png']
     ];
     var direction = 0;
     var focus = 0;
-
+ 
     function Run() {
         let img = document.getElementById("PacMan");
         let imgWidth = img.width
+        let imgHeight = img.height
         focus = (focus + 1) % 2;
-        direction = checkPageBounds(direction, imgWidth, pos, pageWidth);
+        direction = checkPageBounds(direction, imgWidth, imgHeight, xPos, yPos, pageWidth, pageHeight);
         img.src = pacArray[direction][focus];
-        if (direction) {
-            pos -= 20;
-            img.style.left = pos + "px";
-        } else {
-            pos += 20;
-            img.style.left = pos + 'px';
+        switch(direction){
+            case 0: 
+             xPos += 20;
+             img.style.left = xPos + 'px';
+            break;
+            case 1: 
+             xPos -= 20;
+             img.style.left = xPos + 'px';
+            break;
+            case 2: 
+             yPos -= 20;
+             img.style.top = yPos + 'px';
+            break;
+            case 3: 
+             yPos += 20;
+             img.style.top = yPos + 'px';
+            break;
         }
+    
         setTimeout(Run, 300);
     }
     
-    function checkPageBounds(direction, imgWidth, pos, pageWidth) {
-     if ( (pos + imgWidth) > pageWidth && direction == 0|| pos < 0 && direction == 1) {
-            direction = (direction + 1) % 2;
+    function checkPageBounds(direction, imgWidth, imgHeight, xPos, yPos, pageWidth, pageHeight) {
+     if ( (xPos + imgWidth) > pageWidth && direction == 0 
+        || xPos < 10 && direction == 1 
+        || yPos < 0 && direction == 2 
+        || (yPos + imgHeight) > pageHeight && direction ==3) {
+            direction = (direction + 1) % 4;
         }
 
      return direction;
@@ -36,6 +58,11 @@
 
 <body>
     <img id="PacMan" src="PacMan1.png" width='200' onclick="Run()" style="position:absolute"> </img>
+    <canvas id="myCanvas" width="1500" height="750" style="border:3px solid #000000;"></canvas>
+    <p></p>
+    <a href="https://en.wikipedia.org/wiki/Pac-Man">
+        <img id="Header" src="header.svg" width='700' style="position:fixed; width:800px; height:150px"> </img>
+    </a>
 </body>
 
 </html>
